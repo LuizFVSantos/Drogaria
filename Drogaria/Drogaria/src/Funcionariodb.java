@@ -9,7 +9,9 @@ public class Funcionariodb {
     Scanner scanner = new Scanner (System.in);
     Conexao conexao = new Conexao();
     public void criarFuncionario() throws SQLException{
+        System.out.println("Digite o nome do funcionario");
         String nome = scanner.nextLine();
+        System.out.println("Digite a função (1) para Vendedor e (2) para Administrador");
         int tipo = scanner.nextInt();
         scanner.nextLine();
         Conexao exec = new Conexao();
