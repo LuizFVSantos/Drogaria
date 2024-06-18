@@ -39,15 +39,18 @@ public class Vendedordb {
                     System.out.println("O cliente apresentou a receita? (1. Sim / 2. Não): ");
                     int receita = scanner.nextInt();
                     scanner.nextLine();
-                    switch (receita) {
-                        case 1:
+                    while (true){
+                        switch (receita) {
+                            case 1:
                             break;
-                        case 2:
+                            case 2:
                             System.out.println("Venda não realizada. Receita médica não apresentada.");
                             return -1;
-                        default:
-                            System.out.println("Opção inválida. Venda não realizada.");
-                            return -1;
+                            default:
+                            System.out.println("Seleção inválida, tente novamente.");
+                            continue;
+                        }
+                        break;
                     }
                 }
                 if (quantidadedb < quantidade) {
