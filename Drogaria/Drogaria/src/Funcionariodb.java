@@ -11,8 +11,23 @@ public class Funcionariodb {
     public void criarFuncionario() throws SQLException{
         System.out.println("Digite o nome do funcionario");
         String nome = scanner.nextLine();
-        System.out.println("Digite a função (1) para Vendedor e (2) para Administrador");
-        int tipo = scanner.nextInt();
+        int tipo=0;
+        while(true){
+            System.out.println("Digite a função: (1) para Vendedor e (2) para Administrador");
+            int tipoSwitch = scanner.nextInt();
+                switch (tipoSwitch) {
+                    case 1:
+                        tipo = 1;
+                        break;
+                    case 2:
+                        tipo = 2;
+                        break;
+                    default:
+                        System.out.println("Seleção inválida, tente novamente.");
+                        continue;
+                }
+            break;
+        }
         scanner.nextLine();
         Conexao exec = new Conexao();
         int find = buscarFuncionarioPorId(1);
