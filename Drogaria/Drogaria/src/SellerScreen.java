@@ -2,7 +2,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class Sellercontroll {
+public class SellerScreen {
 
     @FXML
     private Button listProd;
