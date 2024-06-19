@@ -1,0 +1,31 @@
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+
+public class Sellercontroll {
+
+    @FXML
+    private Button listProd;
+
+    @FXML
+    private Button out;
+
+    @FXML
+    private Button sell;
+
+    @FXML
+    void listProduct(ActionEvent event) {
+
+    }
+
+    @FXML
+    void outB(ActionEvent event) {
+
+    }
+
+    @FXML
+    void sellProd(ActionEvent event) {
+
+    }
+
+}

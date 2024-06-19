@@ -11,5 +11,8 @@
         "c:\\Users\\Luizz\\Desktop\\Programação\\javafx-sdk-22.0.1\\lib\\javafx.swing.jar",
         "c:\\Users\\Luizz\\Desktop\\Programação\\javafx-sdk-22.0.1\\lib\\javafx.web.jar",
         "c:\\Users\\Luizz\\Desktop\\Programação\\javafx-sdk-22.0.1\\lib\\javafx-swt.jar"
+    ],
+    "java.project.sourcePaths": [
+        "Drogaria/Drogaria/src"
     ]
 }

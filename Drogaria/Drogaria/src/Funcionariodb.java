@@ -28,19 +28,21 @@ public class Funcionariodb {
                 }
             break;
         }
+        
         scanner.nextLine();
         Conexao exec = new Conexao();
         int find = buscarFuncionarioPorId(1);
         if (find == 0){
         String sql = "create table funcionarios( "+
-                        " id int not null auto_increment,"
+                        " id int not null auto_increment,"+
+                        "cpf varchar(11) not null,"
                         + " nome varchar(50) not null,"
                         + " tipo int not null,"+
                         " primary key (id))";
         exec.openDatabase();
         exec.executarQuery(sql);
         sql = " insert into funcionarios"+
-                "(nome,tipo)"+
+                "(cpf,nome,tipo)"+
                 "values"+
                 "('"+ nome + "', '" + tipo +"')";   
         exec.openDatabase();
@@ -59,52 +61,8 @@ public class Funcionariodb {
         System.out.println("FUNCIONARIO:"+nome+"\n Tipo: "+ tipo);
         }
     }
-    public void acessarComoFuncionario() throws SQLException {
-        System.out.print("ID do funcionário: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        int tipoFuncionario = buscarFuncionarioPorId(id);
-        if (tipoFuncionario == 0) {
-            System.out.println("Funcionário não encontrado.");
-            return;
-        }
-        if (tipoFuncionario == 1) {
-            mainMenu.menuVendedor(null);
-        } else if (tipoFuncionario == 2) {
-            mainMenu.menuAdministrador(null);
-        } else {
-            System.out.println("Tipo de funcionário desconhecido.");
-        }
-    }
-    public int buscarFuncionarioPorId(int id) throws SQLException{
-        Conexao exec = new Conexao();
-        String sql = "SELECT id, tipo FROM funcionarios WHERE id = ?";
-        Connection connection = null;
-
-        int tipo=0;
-        try {
-            connection = exec.openDatabase();
-            if (connection != null) {
-                try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                    preparedStatement.setInt(1, id);
-                    ResultSet resultSet = preparedStatement.executeQuery();
     
-                    if (resultSet.next()) {
-                        tipo = resultSet.getInt("tipo");
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                conexao.closeDatabase();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return tipo;
-    }
+    
     public List<Produto> listarProdutos(){
         ResultSet result = null;
         Conexao exec = new Conexao();
