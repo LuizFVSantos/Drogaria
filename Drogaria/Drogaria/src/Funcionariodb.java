@@ -5,63 +5,6 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class Funcionariodb {
-    Drogaria mainMenu = new Drogaria();
-    Scanner scanner = new Scanner (System.in);
-    Conexao conexao = new Conexao();
-    public void criarFuncionario() throws SQLException{
-        System.out.println("Digite o nome do funcionario");
-        String nome = scanner.nextLine();
-        int tipo=0;
-        while(true){
-            System.out.println("Digite a função: (1) para Vendedor e (2) para Administrador");
-            int tipoSwitch = scanner.nextInt();
-                switch (tipoSwitch) {
-                    case 1:
-                        tipo = 1;
-                        break;
-                    case 2:
-                        tipo = 2;
-                        break;
-                    default:
-                        System.out.println("Seleção inválida, tente novamente.");
-                        continue;
-                }
-            break;
-        }
-        
-        scanner.nextLine();
-        Conexao exec = new Conexao();
-        int find = buscarFuncionarioPorId(1);
-        if (find == 0){
-        String sql = "create table funcionarios( "+
-                        " id int not null auto_increment,"+
-                        "cpf varchar(11) not null,"
-                        + " nome varchar(50) not null,"
-                        + " tipo int not null,"+
-                        " primary key (id))";
-        exec.openDatabase();
-        exec.executarQuery(sql);
-        sql = " insert into funcionarios"+
-                "(cpf,nome,tipo)"+
-                "values"+
-                "('"+ nome + "', '" + tipo +"')";   
-        exec.openDatabase();
-        exec.executarQuery(sql);
-        exec.closeDatabase();
-        System.out.println("FUNCIONARIO:"+nome+"\nTipo: "+ tipo);
-        }else{
-
-        String sql = " insert into funcionarios"+
-                "(nome,tipo)"+
-                "values"+
-                "('"+ nome + "', '" + tipo +"')";   
-        exec.openDatabase();
-        exec.executarQuery(sql);
-        exec.closeDatabase();
-        System.out.println("FUNCIONARIO:"+nome+"\n Tipo: "+ tipo);
-        }
-    }
-    
     
     public List<Produto> listarProdutos(){
         ResultSet result = null;

@@ -57,9 +57,9 @@ public class Conexao {
                 return;
             }
             if (tipoFuncionario.equals("ADM")) {
-                mainMenu.menuAdministrador(null);
+                Drogaria.changeScene("ADM");
             } else if (tipoFuncionario.equals("VENDEDOR")) {
-                mainMenu.menuVendedor(null);
+                Drogaria.changeScene("VENDEDOR");
             }
         } else {
             System.out.println("Senha incorreta.");
