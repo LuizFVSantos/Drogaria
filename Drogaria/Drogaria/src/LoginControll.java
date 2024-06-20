@@ -1,34 +1,46 @@
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class LoginControll {
 
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
     private Button logginB;
+
+    @FXML
+    private PasswordField passWord;
+
+    public String getPassWord() {
+        String pass = passWord.getText();
+        return pass;
+    }
 
     @FXML
     private TextField userText;
 
-    @FXML
-    void confirmLogin(ActionEvent event) {
-
+    public String getUserText() {
+        String text = userText.getText();
+        return text;
     }
 
     @FXML
-    void initialize() {
-        assert logginB != null : "fx:id=\"logginB\" was not injected: check your FXML file 'loginScreen.fxml'.";
-        assert userText != null : "fx:id=\"userText\" was not injected: check your FXML file 'loginScreen.fxml'.";
-
+    void confirmLogin(ActionEvent event) throws SQLException{
+        String senha = passWord.getText();
+        String usuario = userText.getText();
+        Connection connection = null;
+        Conexao exec = new Conexao();
+        try {
+            connection = exec.openDatabase();
+            if (connection != null) {
+            
+            
+        
+            }   
+        }
     }
-
 }

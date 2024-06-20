@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 public class Conexao {
     static final String DB_URL = "jdbc:mysql://localhost:3306/drogaria_una";
     static final String USER = "root";
@@ -35,4 +36,59 @@ public class Conexao {
         }
         return -1;
     }
+
+    public void acessarComoFuncionario() throws SQLException {
+        LoginControll cpfLogin = new LoginControll();
+        LoginControll passLogin = new LoginControll();
+        String cpf = cpfLogin.getUserText();
+        String pass = passLogin.getPassWord();
+        ArrayList<String> funcionario = buscarFuncionarioPorCpf(cpf);
+        
+        if (funcionario.isEmpty()) {
+            System.out.println("Usuario não encontrado.");
+            return;
+        }
+        
+        String passFuncionario = funcionario.get(0);
+        String tipoFuncionario = funcionario.get(1);
+
+        if(passFuncionario.equals(pass)) {
+            if (tipoFuncionario == null) {
+                return;
+            }
+            if (tipoFuncionario.equals("ADM")) {
+                mainMenu.menuAdministrador(null);
+            } else if (tipoFuncionario.equals("VENDEDOR")) {
+                mainMenu.menuVendedor(null);
+            }
+        } else {
+            System.out.println("Senha incorreta.");
+        }
+    }
+
+    public ArrayList<String> buscarFuncionarioPorCpf(String cpf) throws SQLException {
+        Conexao exec = new Conexao();
+        String sql = "SELECT senha, tipo FROM funcionarios WHERE cpf = ?";
+        ArrayList<String> infos = new ArrayList<>();
+        
+        try (Connection connection = exec.openDatabase();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+             
+            preparedStatement.setString(1, cpf);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String senha = resultSet.getString("senha");
+                infos.add(senha);
+                String tipo = resultSet.getString("tipo");
+                infos.add(tipo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            exec.closeDatabase();
+        }
+        return infos;
+    }
+
 }
