@@ -1,6 +1,4 @@
-import java.sql.Connection;
 import java.sql.SQLException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

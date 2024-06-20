@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 public class Conexao {
     static final String DB_URL = "jdbc:mysql://localhost:3306/drogaria";
     static final String USER = "root";
@@ -51,10 +52,10 @@ public class Conexao {
             if (funcaoFuncionario == null) {
                 return "Usuario não encontrado.";
             }
-            if (funcaoFuncionario.equals("ADM")) {
+            if (funcaoFuncionario.equals("Administrador")) {
                 Drogaria.changeScene("ADM");
                 System.out.println(funcaoFuncionario);
-            } else if (funcaoFuncionario.equals("VENDEDOR")) {
+            } else if (funcaoFuncionario.equals("Vendedor")) {
                 Drogaria.changeScene("VENDEDOR");
             }
         } else {
@@ -88,4 +89,15 @@ public class Conexao {
         return infos;
     }
 
+    public ArrayList<String> adicionarFuncionarios(ArrayList<String> funcionario) throws SQLException {
+        Conexao exec = new Conexao();
+        String cpf= funcionario.get(0), nome = funcionario.get(1), funcao = funcionario.get(2), senha = funcionario.get(3);
+        String sql = "insert into funcionarios (cpf, nome, funcao, senha)"+
+        "values ('"+cpf+"','"+ nome +"', '" + funcao +"', '" + senha +"')";
+        exec.openDatabase();
+        exec.executarQuery(sql);
+        exec.closeDatabase();
+        return funcionario;
+    }
 }
+

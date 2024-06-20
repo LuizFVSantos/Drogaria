@@ -24,32 +24,37 @@ public class AdmScreen {
 
     @FXML
     void addProduct(ActionEvent event) {
+        Drogaria.changeScene("ADDPROD");
 
     }
 
     @FXML
     void addWorker(ActionEvent event) {
-
+        Drogaria.changeScene("ADDFUNC");
     }
-
+    
     @FXML
     void listProduct(ActionEvent event) {
-
+        Drogaria.changeScene("LISTPROD");
+        
     }
-
+    
     @FXML
     void outButton(ActionEvent event) {
-
+        Drogaria.changeScene("OUT");
+        
     }
-
+    
     @FXML
     void removeProduct(ActionEvent event) {
-
+        Drogaria.changeScene("DELPROD");
+        
     }
-
+    
     @FXML
     void updateStock(ActionEvent event) {
-
+        Drogaria.changeScene("UPPROD");
+        
     }
-
+    
 }

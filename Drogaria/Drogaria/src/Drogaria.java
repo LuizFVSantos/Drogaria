@@ -69,8 +69,29 @@ public class Drogaria extends Application{
             case "ADM":
                 stage.setScene(admScreen);
                 break;
+            case "OUT":
+                stage.setScene(loginScreen);
+                break;
             case "VENDEDOR":
                 stage.setScene(sellerScreen);
+                break;
+            case "ADDFUNC":
+                stage.setScene(addEmployee);
+                break;
+            case "ADDPROD":
+                stage.setScene(addProduct);
+                break;
+            case "DELPROD":
+                stage.setScene(deleteProduct);
+                break;
+            case "LISTPROD":
+                stage.setScene(listProduct);
+                break;
+            case "SELLPROD":
+                stage.setScene(sellProduct);
+                break;
+            case "UPPROD":
+                stage.setScene(updateStock);
                 break;
         }
     }
