@@ -30,17 +30,7 @@ public class LoginControll {
 
     @FXML
     void confirmLogin(ActionEvent event) throws SQLException{
-        String senha = passWord.getText();
-        String usuario = userText.getText();
-        Connection connection = null;
         Conexao exec = new Conexao();
-        try {
-            connection = exec.openDatabase();
-            if (connection != null) {
-            
-            
-        
-            }   
-        }
+        exec.acessarComoFuncionario();
     }
 }
