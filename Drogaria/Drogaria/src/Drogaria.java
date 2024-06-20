@@ -68,8 +68,10 @@ public class Drogaria extends Application{
         switch(change){
             case "ADM":
                 stage.setScene(admScreen);
+                break;
             case "VENDEDOR":
                 stage.setScene(sellerScreen);
+                break;
         }
     }
     public static void main(String[] args) throws Exception {

@@ -15,22 +15,14 @@ public class LoginControll {
     @FXML
     private PasswordField passWord;
 
-    public String getPassWord() {
-        String pass = passWord.getText();
-        return pass;
-    }
-
     @FXML
     private TextField userText;
 
-    public String getUserText() {
-        String text = userText.getText();
-        return text;
-    }
-
     @FXML
     void confirmLogin(ActionEvent event) throws SQLException{
+        String cpf = userText.getText();
+        String pass = passWord.getText();
         Conexao exec = new Conexao();
-        exec.acessarComoFuncionario();
+        exec.acessarComoFuncionario(cpf,pass);
     }
 }

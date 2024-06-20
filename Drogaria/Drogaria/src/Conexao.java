@@ -1,7 +1,7 @@
 import java.sql.*;
 import java.util.ArrayList;
 public class Conexao {
-    static final String DB_URL = "jdbc:mysql://localhost:3306/drogaria_una";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/drogaria";
     static final String USER = "root";
     static final String PASS = "teste123!";
 
@@ -37,38 +37,35 @@ public class Conexao {
         return -1;
     }
 
-    public void acessarComoFuncionario() throws SQLException {
-        LoginControll cpfLogin = new LoginControll();
-        LoginControll passLogin = new LoginControll();
-        String cpf = cpfLogin.getUserText();
-        String pass = passLogin.getPassWord();
+    public String acessarComoFuncionario(String cpf, String senha) throws SQLException {
         ArrayList<String> funcionario = buscarFuncionarioPorCpf(cpf);
         
         if (funcionario.isEmpty()) {
-            System.out.println("Usuario não encontrado.");
-            return;
+            return "Usuario não encontrado.";
         }
         
         String passFuncionario = funcionario.get(0);
-        String tipoFuncionario = funcionario.get(1);
+        String funcaoFuncionario = funcionario.get(1);
 
-        if(passFuncionario.equals(pass)) {
-            if (tipoFuncionario == null) {
-                return;
+        if(passFuncionario.equals(senha)) {
+            if (funcaoFuncionario == null) {
+                return "Usuario não encontrado.";
             }
-            if (tipoFuncionario.equals("ADM")) {
+            if (funcaoFuncionario.equals("ADM")) {
                 Drogaria.changeScene("ADM");
-            } else if (tipoFuncionario.equals("VENDEDOR")) {
+                System.out.println(funcaoFuncionario);
+            } else if (funcaoFuncionario.equals("VENDEDOR")) {
                 Drogaria.changeScene("VENDEDOR");
             }
         } else {
             System.out.println("Senha incorreta.");
         }
+        return funcaoFuncionario;
     }
 
     public ArrayList<String> buscarFuncionarioPorCpf(String cpf) throws SQLException {
         Conexao exec = new Conexao();
-        String sql = "SELECT senha, tipo FROM funcionarios WHERE cpf = ?";
+        String sql = "SELECT senha, funcao FROM funcionarios WHERE cpf = ?";
         ArrayList<String> infos = new ArrayList<>();
         
         try (Connection connection = exec.openDatabase();
@@ -80,8 +77,8 @@ public class Conexao {
             if (resultSet.next()) {
                 String senha = resultSet.getString("senha");
                 infos.add(senha);
-                String tipo = resultSet.getString("tipo");
-                infos.add(tipo);
+                String funcao = resultSet.getString("funcao");
+                infos.add(funcao);
             }
         } catch (SQLException e) {
             e.printStackTrace();
