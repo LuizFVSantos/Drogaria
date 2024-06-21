@@ -1,6 +1,5 @@
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 public class Conexao {
     static final String DB_URL = "jdbc:mysql://localhost:3306/drogaria";
     static final String USER = "root";
