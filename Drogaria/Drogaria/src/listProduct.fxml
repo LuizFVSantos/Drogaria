@@ -92,7 +92,7 @@
           </font>
         </Label>
             <Button fx:id="out" layoutX="572.0" layoutY="13.0" mnemonicParsing="false" onAction="#outB" text="Sair" />
-            <ListView layoutX="14.0" layoutY="55.0" prefHeight="312.0" prefWidth="614.0" />
+            <ListView fx:id="listProduct" editable="true" layoutX="20.0" layoutY="52.0" prefHeight="312.0" prefWidth="614.0" />
       </children>
     </AnchorPane>
   </children>

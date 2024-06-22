@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 public class Conexao {
     static final String DB_URL = "jdbc:mysql://localhost:3306/drogaria";
     static final String USER = "root";
@@ -111,6 +112,42 @@ public class Conexao {
         exec.executarQuery(sql);      
         exec.closeDatabase();
         return produto;
+    }
+
+    public List<Produto> listarProdutos(){
+        ResultSet result = null;
+        Conexao exec = new Conexao();
+        String sql = "SELECT * from produtos";
+        List<Produto> produto = new ArrayList<Produto>();       
+        Connection connection = null;
+        try {
+            connection = exec.openDatabase();
+            if (connection != null) {
+                PreparedStatement selectStatement = connection.prepareStatement(sql);               
+                result = selectStatement.executeQuery();                
+                while(result.next()){
+                    Produto produtos = new Produto(0, null, 0, 0, null, null);
+                    produtos.setId(result.getInt(1));
+                    produtos.setNome(result.getString(2));
+                    produtos.setValor(result.getDouble(3));
+                    produtos.setQuantidade(result.getInt(4));
+                    produtos.setEan(result.getString(5));
+                    produtos.setTarja(result.getString(6));
+                    produto.add(produtos);
+                }
+            }        
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    exec.closeDatabase();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return produto; 
     }
 }
 
