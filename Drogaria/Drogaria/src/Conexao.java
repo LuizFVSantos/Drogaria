@@ -98,5 +98,19 @@ public class Conexao {
         exec.closeDatabase();
         return funcionario;
     }
+
+    public ArrayList<String> adicionarProduto(ArrayList<String> produto) throws SQLException {
+        String nome= produto.get(0), valor = produto.get(1), quantidade = produto.get(2), ean = produto.get(3), tarja = produto.get(4);
+        valor = valor.replace(",", ".");
+        Conexao exec = new Conexao();
+        String sql = " insert into produtos"+
+                "(nome,valor, quantidade, ean, tarja)"+
+                "values"+
+                "('"+ nome + "', '" + valor + "', '" + quantidade + "','"+ ean + "','"+ tarja+"')";
+        exec.openDatabase();
+        exec.executarQuery(sql);      
+        exec.closeDatabase();
+        return produto;
+    }
 }
 

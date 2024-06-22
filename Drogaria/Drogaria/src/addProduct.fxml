@@ -33,12 +33,12 @@
 -->
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -100,16 +100,10 @@
             <Label layoutX="24.0" layoutY="153.0" text="Quantidade" />
             <Label layoutX="22.0" layoutY="205.0" text="Codigo de barras" />
             <TextField fx:id="eanProduct" layoutX="24.0" layoutY="222.0" />
-            <SplitMenuButton fx:id="stripeProduct" layoutX="22.0" layoutY="270.0" mnemonicParsing="false" onAction="#selectStripe" text="Tarja">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Sem tarja" />
-                <MenuItem mnemonicParsing="false" text="Amarela" />
-                  <MenuItem mnemonicParsing="false" text="Vermelha" />
-                  <MenuItem mnemonicParsing="false" text="Preta" />
-              </items>
-            </SplitMenuButton>
             <Button fx:id="confirm" layoutX="21.0" layoutY="314.0" mnemonicParsing="false" onAction="#confirmB" text="Confirmar" />
             <Button fx:id="out" layoutX="526.0" layoutY="314.0" mnemonicParsing="false" onAction="#outB" prefHeight="25.0" prefWidth="56.0" text="Sair" />
+            <ChoiceBox fx:id="stripeProduct" layoutX="24.0" layoutY="275.0" prefWidth="150.0" />
+            <Label layoutX="24.0" layoutY="258.0" text="Tarja" />
       </children>
     </AnchorPane>
   </children>

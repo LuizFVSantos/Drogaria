@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
 
 public class AddEmployee implements Initializable{
@@ -22,9 +21,6 @@ public class AddEmployee implements Initializable{
 
     @FXML
     private TextField cpf;
-
-    @FXML
-    private SplitMenuButton functionEmployee;
 
     @FXML
     private TextField nameEmployee;
