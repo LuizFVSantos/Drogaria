@@ -62,5 +62,4 @@ public class AddEmployee implements Initializable{
         choiceBox.getItems().addAll(funcoes);
 
     }
-
 }

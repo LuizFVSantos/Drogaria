@@ -149,5 +149,52 @@ public class Conexao {
         }
         return produto; 
     }
+
+    public int realizarVenda() {
+        Conexao exec = new Conexao();
+        String sql = ("SELECT id, quantidade, tarja FROM produtos WHERE id = ?");
+        String updateSql = ("UPDATE produtos SET quantidade = ? WHERE id = ?");
+        Connection connection = null;
+        int quantidadedb=0;
+        String tarja = null;
+        try {
+            connection = exec.openDatabase();
+            if (connection != null) {
+                try (PreparedStatement selectStatement = connection.prepareStatement(sql)) {
+                    selectStatement.setInt(1, id);
+                    try (ResultSet resultSet = selectStatement.executeQuery()) {
+                        if (resultSet.next()) {
+                            quantidadedb = resultSet.getInt("quantidade");
+                            tarja = resultSet.getString("tarja");
+                        } else {
+                            return -1;
+                        }
+                    }
+                }
+                if ("Vermelha".equalsIgnoreCase(tarja) || "Preta".equalsIgnoreCase(tarja)) {
+                }
+                if (quantidadedb < quantidade) {
+                    return -1;
+                }
+                int quantidadeAtual = quantidadedb - quantidade;
+                try (PreparedStatement updateStatement = connection.prepareStatement(updateSql)) {
+                    updateStatement.setInt(1, quantidadeAtual);
+                    updateStatement.setInt(2, id);
+                    updateStatement.executeUpdate();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    exec.closeDatabase();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return quantidadedb;
+    }
 }
 

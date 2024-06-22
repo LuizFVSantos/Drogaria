@@ -60,5 +60,4 @@ public class AddProduct implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         stripeProduct.getItems().addAll(tarja);
     }
-
 }

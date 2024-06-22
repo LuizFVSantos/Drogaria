@@ -15,17 +15,16 @@ public class SellerScreen {
 
     @FXML
     void listProduct(ActionEvent event) {
-
+        Drogaria.changeScene("LISPROD");
     }
 
     @FXML
     void outB(ActionEvent event) {
-
+        Drogaria.changeScene("VENDEDOR");
     }
 
     @FXML
     void sellProd(ActionEvent event) {
-
+        Drogaria.changeScene("SELLPROD");
     }
-
 }
