@@ -1,3 +1,5 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,11 +24,19 @@ public class UpdateStock {
     void confirmB(ActionEvent event) throws SQLException {
         String ean = eanProduct.getText(), stock = stockProduct.getText();
         Conexao exec = new Conexao();
-        String sql = ("UPDATE produtos SET quantidade = "+ stock + " WHERE ean = " + ean);
-        exec.openDatabase();
-        exec.executarQuery(sql);
-        exec.closeDatabase();    
-        Drogaria.changeScene("VENDEDOR");
+        String sql = ("UPDATE produtos SET quantidade = ? WHERE ean = ?");
+        try{
+            Connection connection = exec.openDatabase();
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setInt(1, Integer.parseInt(stock));
+            pstm.setString(2, ean);
+            pstm.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally{
+            exec.closeDatabase();    
+        }
+        Drogaria.changeScene("ADM");
     }
 
     @FXML

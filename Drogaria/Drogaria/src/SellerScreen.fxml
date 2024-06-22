@@ -85,14 +85,14 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-            <Label layoutX="269.0" layoutY="14.0" text="CAIXA">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
-            <Button fx:id="sell" layoutX="152.0" layoutY="118.0" mnemonicParsing="false" onAction="#sellProd" prefHeight="59.0" prefWidth="117.0" text="Realizar venda" />
-            <Button fx:id="listProd" layoutX="339.0" layoutY="118.0" mnemonicParsing="false" onAction="#listProduct" prefHeight="59.0" prefWidth="117.0" text="Listar produtos" />
-            <Button fx:id="out" layoutX="456.0" layoutY="286.0" mnemonicParsing="false" onAction="#outB" prefHeight="59.0" prefWidth="117.0" text="Sair" />
+        <Label layoutX="269.0" layoutY="14.0" text="CAIXA">
+          <font>
+            <Font size="25.0" />
+          </font>
+        </Label>
+        <Button fx:id="sell" layoutX="152.0" layoutY="118.0" mnemonicParsing="false" onAction="#sellProd" prefHeight="59.0" prefWidth="117.0" text="Realizar venda" />
+        <Button fx:id="listProd" layoutX="339.0" layoutY="118.0" mnemonicParsing="false" onAction="#listProduct" prefHeight="59.0" prefWidth="117.0" text="Listar produtos" />
+        <Button fx:id="out" layoutX="456.0" layoutY="286.0" mnemonicParsing="false" onAction="#outB" prefHeight="59.0" prefWidth="117.0" text="Sair" />
       </children>
     </AnchorPane>
   </children>
