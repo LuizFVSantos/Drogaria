@@ -1,7 +1,13 @@
+import java.util.Optional;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 public class Drogaria extends Application{
     private static Stage stage;
@@ -18,51 +24,36 @@ public class Drogaria extends Application{
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-    stage=primaryStage;
-    
-    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/loginScreen.fxml"));
-    Parent root = fxmlLoader.load();
-    loginScreen = new Scene(root);
+        stage = primaryStage;
 
-    FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("/admScreen.fxml"));
-    Parent root2 = fxmlLoader2.load();
-    admScreen = new Scene(root2);
+        loginScreen = loadScene("/loginScreen.fxml");
+        admScreen = loadScene("/admScreen.fxml");
+        sellerScreen = loadScene("/sellerScreen.fxml");
+        addEmployee = loadScene("/addEmployee.fxml");
+        addProduct = loadScene("/addProduct.fxml");
+        deleteProduct = loadScene("/deleteProduct.fxml");
+        listProduct = loadScene("/listProduct.fxml");
+        sellProduct = loadScene("/sellProduct.fxml");
+        updateStock = loadScene("/updateStock.fxml");
 
-    FXMLLoader fxmlLoader3 = new FXMLLoader(getClass().getResource("/sellerScreen.fxml"));
-    Parent root3 = fxmlLoader3.load();
-    sellerScreen = new Scene(root3);
-        
-    FXMLLoader fxmlLoader4 = new FXMLLoader(getClass().getResource("/addEmployee.fxml"));
-    Parent root4 = fxmlLoader4.load();
-    addEmployee = new Scene(root4);
-
-    FXMLLoader fxmlLoader5 = new FXMLLoader(getClass().getResource("/addProduct.fxml"));
-    Parent root5 = fxmlLoader5.load();
-    addProduct = new Scene(root5);
-
-    FXMLLoader fxmlLoader6 = new FXMLLoader(getClass().getResource("/deleteProduct.fxml"));
-    Parent root6 = fxmlLoader6.load();
-    deleteProduct = new Scene(root6);
-
-    FXMLLoader fxmlLoader7 = new FXMLLoader(getClass().getResource("/listProduct.fxml"));
-    Parent root7 = fxmlLoader7.load();
-    listProduct = new Scene(root7);
-
-    FXMLLoader fxmlLoader8 = new FXMLLoader(getClass().getResource("/sellProduct.fxml"));
-    Parent root8 = fxmlLoader8.load();
-    sellProduct = new Scene(root8);
-
-    FXMLLoader fxmlLoader9 = new FXMLLoader(getClass().getResource("/updateStock.fxml"));
-    Parent root9 = fxmlLoader9.load();
-    updateStock = new Scene(root9);
-
-    stage.setTitle("Drogaria");
-    stage.setScene(loginScreen);
-    stage.show();
+        stage.setTitle("Drogaria");
+        stage.setScene(loginScreen);
+        stage.show();
     }
 
-    public static void changeScene(String change){
-        switch(change){
+    private Scene loadScene(String fxmlPath) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = fxmlLoader.load();
+            return new Scene(root);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static void changeScene(String change) {
+        switch (change) {
             case "ADM":
                 stage.setScene(admScreen);
                 break;
@@ -95,4 +86,28 @@ public class Drogaria extends Application{
     public static void main(String[] args) throws Exception {
         launch (args);
     }
-}
+
+    public static Boolean confirmarReceita() {
+        AtomicBoolean confirmed = new AtomicBoolean(false);
+        CountDownLatch latch = new CountDownLatch(1);
+
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmação de Receita");
+            alert.setHeaderText(null);
+            alert.setContentText("Este produto exige receita médica. Você confirmou a entrega da receita?");
+            Optional<ButtonType> result = alert.showAndWait();
+            confirmed.set(result.isPresent() && result.get() == ButtonType.OK);
+            latch.countDown();
+        });
+
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        return confirmed.get();
+    }
+
+}       
