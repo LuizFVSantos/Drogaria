@@ -93,7 +93,7 @@ public class Drogaria extends Application{
         CountDownLatch latch = new CountDownLatch(1);
 
         Platform.runLater(() -> {
-            Alert alert = new Alert(AlertType.CONFIRMATION);
+            Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Confirmação de Receita");
             alert.setHeaderText(null);
             alert.setContentText("Este produto exige receita médica. Você confirmou a entrega da receita?");
