@@ -45,6 +45,9 @@ public class AddEmployee implements Initializable{
             e.printStackTrace();
         }
         Drogaria.changeScene("ADM");
+        cpf.clear();
+        nameEmployee.clear();
+        password.clear();
     }
 
     @FXML

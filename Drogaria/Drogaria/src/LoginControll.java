@@ -22,5 +22,7 @@ public class LoginControll {
         String pass = passWord.getText();
         Conexao exec = new Conexao();
         exec.acessarComoFuncionario(cpf,pass);
+        userText.clear();
+        passWord.clear();
     }
 }

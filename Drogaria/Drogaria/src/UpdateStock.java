@@ -34,13 +34,17 @@ public class UpdateStock {
         }catch(SQLException e){
             e.printStackTrace();
         }finally{
-            exec.closeDatabase();    
+            exec.closeDatabase(); 
+            stockProduct.clear();
+            eanProduct.clear();   
         }
         Drogaria.changeScene("ADM");
     }
-
+    
     @FXML
     void outB(ActionEvent event) {
-         Drogaria.changeScene("VENDEDOR");
+        Drogaria.changeScene("VENDEDOR");
+        stockProduct.clear();
+        eanProduct.clear();   
     }
 }

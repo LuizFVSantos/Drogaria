@@ -48,6 +48,10 @@ public class AddProduct implements Initializable {
             e.printStackTrace();
         }
         Drogaria.changeScene("ADM");
+        eanProduct.clear();
+        nameProduct.clear();
+        stockProduct.clear();
+        priceProduct.clear();
 
     }
 

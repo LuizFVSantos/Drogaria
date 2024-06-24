@@ -67,6 +67,8 @@ public class SellProduct {
                 exec.realizarVenda(ean, stock);
             }
             Drogaria.changeScene("VENDEDOR");
+            eanProduct.clear();
+            stockProduct.clear();
         } catch (SQLException e) {
             e.printStackTrace();
         }
