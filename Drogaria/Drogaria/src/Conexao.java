@@ -172,4 +172,83 @@ public class Conexao {
         }
         return produto;
     }
+
+    public String testeTarja(String ean) throws SQLException {
+        String sql = "SELECT ean, tarja FROM produtos WHERE ean = ?";
+        Connection connection = null;
+        String tarja = null;
+        try {
+            connection = openDatabase();
+            if (connection != null) {
+                try (PreparedStatement selectStatement = connection.prepareStatement(sql)) {
+                    selectStatement.setString(1, ean);
+                    try (ResultSet resultSet = selectStatement.executeQuery()) {
+                        if (resultSet.next()) {
+                            tarja = resultSet.getString("tarja");
+                        } else {
+                            return tarja;
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return tarja;
+
+        } finally {
+            closeDatabase();
+        }return tarja; 
+    }
+        
+
+    public void realizarVenda(String ean, String stock) throws SQLException {
+        String sql = "SELECT ean quantidade FROM produtos WHERE ean = ?";
+        String updateSql = "UPDATE produtos SET quantidade = ? WHERE ean = ?";
+        Connection connection = null;
+        int quantidadedb = 0;
+
+        try {
+            connection = openDatabase();
+            if (connection != null) {
+                try (PreparedStatement selectStatement = connection.prepareStatement(sql)) {
+                    selectStatement.setString(1, ean);
+                    try (ResultSet resultSet = selectStatement.executeQuery()) {
+                        if (resultSet.next()) {
+                            quantidadedb = resultSet.getInt("quantidade");
+                            System.out.println(quantidadedb);
+                        } else {
+                            return;
+                        }
+                    }
+                }
+                if (quantidadedb < Integer.parseInt(stock)) {
+                    return;
+                }
+                int quantidadeAtual = quantidadedb - Integer.parseInt(stock);
+                try (PreparedStatement updateStatement = connection.prepareStatement(updateSql)) {
+                    updateStatement.setInt(1, quantidadeAtual);
+                    updateStatement.setString(2, ean);
+                    updateStatement.executeUpdate();
+                    System.out.println(quantidadeAtual);
+                    System.out.println(ean);
+                }
+                return;
+            } else {
+                return;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+
+        } finally {
+            if (connection != null) {
+                try {
+                    closeDatabase();
+                    Drogaria.changeScene("VENDEDOR");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }

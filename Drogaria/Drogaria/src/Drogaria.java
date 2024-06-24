@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 public class Drogaria extends Application{
@@ -92,7 +93,7 @@ public class Drogaria extends Application{
         CountDownLatch latch = new CountDownLatch(1);
 
         Platform.runLater(() -> {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Confirmação de Receita");
             alert.setHeaderText(null);
             alert.setContentText("Este produto exige receita médica. Você confirmou a entrega da receita?");
