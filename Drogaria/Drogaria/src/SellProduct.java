@@ -1,9 +1,6 @@
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -39,42 +36,39 @@ public class SellProduct {
         String ean = eanProduct.getText();
         System.out.println(ean);
         String stock = stockProduct.getText();
+        System.out.println(stock);
         Conexao exec = new Conexao();
 
         try {
             String tarja = exec.testeTarja(ean);
             if (tarja.equalsIgnoreCase("Vermelha") || tarja.equalsIgnoreCase("Preta")) {
+                confirmed=null;
                 latch = new CountDownLatch(1);
-
-                Platform.runLater(() -> {
-                    Alert alert = new Alert(AlertType.WARNING
-                    );
-                    alert.setTitle("Confirmação de Receita");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Este produto exige receita médica. Você confirmou a entrega da receita?");
-                    Optional<ButtonType> result = alert.showAndWait();
-                    confirmed = result.isPresent() && result.get() == ButtonType.OK;
-                    latch.countDown();
-                });
-
+                Alert alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("Confirmação de Receita");
+                alert.setHeaderText(null);
+                alert.setContentText("Este produto exige receita médica. Você confirmou a entrega da receita?");
+                Optional<ButtonType> result = alert.showAndWait();
+                confirmed = result.isPresent() && result.get() == ButtonType.OK;
+                latch.countDown();
                 try {
-                    latch.await(); // Wait for the alert to be handled
+                    latch.await();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                    Thread.currentThread().interrupt(); // Restore interrupted status
+                    Thread.currentThread().interrupt();
                 }
-                if (confirmed) {
+                if (confirmed.equals(true)) {
+                    exec.realizarVenda(ean, stock);
                     System.out.println("ok");
                 } else {
                     System.out.println("Prescription not confirmed.");
                 }
+            }else{
+                exec.realizarVenda(ean, stock);
             }
-
             Drogaria.changeScene("VENDEDOR");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 }
-    
-

@@ -20,7 +20,7 @@ public class SellerScreen {
 
     @FXML
     void outB(ActionEvent event) {
-        Drogaria.changeScene("VENDEDOR");
+        Drogaria.changeScene("OUT");
     }
 
     @FXML

@@ -24,9 +24,11 @@ public class Conexao {
     public void closeDatabase() throws SQLException {
         if (sqlmgr != null) {
             sqlmgr.close();
+            System.out.println("DataBase FECHADO");
         }
         if (dbconn != null) {
             dbconn.close();
+            System.out.println("DataBase FECHADO");
         }
     }
 
@@ -202,7 +204,7 @@ public class Conexao {
         
 
     public void realizarVenda(String ean, String stock) throws SQLException {
-        String sql = "SELECT ean quantidade FROM produtos WHERE ean = ?";
+        String sql = "SELECT ean, quantidade FROM produtos WHERE ean = ?";
         String updateSql = "UPDATE produtos SET quantidade = ? WHERE ean = ?";
         Connection connection = null;
         int quantidadedb = 0;
