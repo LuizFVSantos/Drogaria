@@ -38,13 +38,12 @@ public class AddEmployee implements Initializable{
         funcionario.add(nameEmployee.getText());
         funcionario.add(choiceBox.getValue());
         funcionario.add(password.getText());
-        Conexao exec = new Conexao();   
         try {
+            Conexao exec = new Conexao();   
             exec.adicionarFuncionarios(funcionario);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        Drogaria.changeScene("ADM");
         cpf.clear();
         nameEmployee.clear();
         password.clear();

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 
@@ -34,23 +35,32 @@ public class SellProduct {
     @FXML
     public void confirmB(ActionEvent event) {
         String ean = eanProduct.getText();
-        System.out.println(ean);
         String stock = stockProduct.getText();
-        System.out.println(stock);
+        if (ean.equals("") || stock.equals("")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Existem campos vazios");
+            Optional<ButtonType> result = alert.showAndWait();
+            Boolean confirm = result.isPresent() && result.get() == ButtonType.OK;
+            if (confirm = true) {
+                return;
+            }
+        }
         Conexao exec = new Conexao();
 
         try {
             String tarja = exec.testeTarja(ean);
             if (tarja.equalsIgnoreCase("Vermelha") || tarja.equalsIgnoreCase("Preta")) {
-                confirmed=null;
+                confirmed = null;
                 latch = new CountDownLatch(1);
+                ButtonType buttonTypeSim = new ButtonType("Sim", ButtonData.OK_DONE);
+                ButtonType buttonTypeCancelar = new ButtonType("Cancelar", ButtonData.CANCEL_CLOSE);
                 Alert alert = new Alert(AlertType.CONFIRMATION);
                 alert.setTitle("Confirmação de Receita");
                 alert.setHeaderText(null);
                 alert.setContentText("Este produto exige receita médica. Você confirmou a entrega da receita?");
-                alert.getButtonTypes();
+                alert.getButtonTypes().setAll(buttonTypeSim, buttonTypeCancelar);
                 Optional<ButtonType> result = alert.showAndWait();
-                confirmed = result.isPresent() && result.get() == ButtonType.OK;
+                confirmed = result.isPresent() && result.get() == buttonTypeSim;
                 latch.countDown();
                 try {
                     latch.await();
@@ -60,11 +70,10 @@ public class SellProduct {
                 }
                 if (confirmed.equals(true)) {
                     exec.realizarVenda(ean, stock);
-                    System.out.println("ok");
                 } else {
-                    System.out.println("Prescription not confirmed.");
+                    return;
                 }
-            }else{
+            } else {
                 exec.realizarVenda(ean, stock);
             }
             Drogaria.changeScene("VENDEDOR");

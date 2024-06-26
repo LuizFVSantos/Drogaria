@@ -41,13 +41,12 @@ public class AddProduct implements Initializable {
         produto.add(stockProduct.getText());
         produto.add(eanProduct.getText());
         produto.add(stripeProduct.getValue());
-        Conexao exec = new Conexao();   
         try {
+            Conexao exec = new Conexao();   
             exec.adicionarProduto(produto);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        Drogaria.changeScene("ADM");
         eanProduct.clear();
         nameProduct.clear();
         stockProduct.clear();

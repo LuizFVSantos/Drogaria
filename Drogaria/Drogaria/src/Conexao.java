@@ -1,6 +1,10 @@
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 public class Conexao {
     static final String DB_URL = "jdbc:mysql://localhost:3306/drogaria";
@@ -43,17 +47,25 @@ public class Conexao {
 
     public String acessarComoFuncionario(String cpf, String senha) throws SQLException {
         ArrayList<String> funcionario = buscarFuncionarioPorCpf(cpf);
-
         if (funcionario.isEmpty()) {
-            return "Usuario não encontrado.";
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Usuario ou senha incorretos");
+            Optional<ButtonType> result = alert.showAndWait();
+            Boolean confirm = result.isPresent() && result.get() == ButtonType.OK;
+            if (confirm = true)
+                return "erro";
         }
-
         String passFuncionario = funcionario.get(0);
         String funcaoFuncionario = funcionario.get(1);
 
         if (passFuncionario.equals(senha)) {
             if (funcaoFuncionario == null) {
-                return "Usuario não encontrado.";
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setContentText("Funcionario não encontrado");
+                Optional<ButtonType> result = alert.showAndWait();
+                Boolean confirm = result.isPresent() && result.get() == ButtonType.OK;
+                if (confirm = true)
+                    return "erro";
             }
             if (funcaoFuncionario.equals("Administrador")) {
                 Drogaria.changeScene("ADM");
@@ -62,7 +74,12 @@ public class Conexao {
                 Drogaria.changeScene("VENDEDOR");
             }
         } else {
-            System.out.println("Senha incorreta.");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Usuario ou senha Incorretos");
+            Optional<ButtonType> result = alert.showAndWait();
+            Boolean confirm = result.isPresent() && result.get() == ButtonType.OK;
+            if (confirm = true)
+                return "erro";
         }
         return funcaoFuncionario;
     }
@@ -96,6 +113,14 @@ public class Conexao {
         Conexao exec = new Conexao();
         String cpf = funcionario.get(0), nome = funcionario.get(1), funcao = funcionario.get(2),
                 senha = funcionario.get(3);
+        if (cpf.isEmpty() || nome.isEmpty() || funcao.isEmpty() || senha.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Existem Campos Vazios");
+            Optional<ButtonType> result = alert.showAndWait();
+            Boolean confirm = result.isPresent() && result.get() == ButtonType.OK;
+            if (confirm = true)
+                return null;
+        }
         String sql = "insert into funcionarios (cpf, nome, funcao, senha) values (?,?,?,?)";
         try {
             Connection connection = exec.openDatabase();
@@ -117,6 +142,14 @@ public class Conexao {
         String nome = produto.get(0), valor = produto.get(1), quantidade = produto.get(2), ean = produto.get(3),
                 tarja = produto.get(4);
         valor = valor.replace(",", ".");
+        if (nome.isEmpty() || valor.isEmpty() || quantidade.isEmpty() || ean.isEmpty() || tarja.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Existem Campos Vazios");
+            Optional<ButtonType> result = alert.showAndWait();
+            Boolean confirm = result.isPresent() && result.get() == ButtonType.OK;
+            if (confirm = true)
+                return null;
+        }
         Conexao exec = new Conexao();
         String sql = "insert into produtos(nome,valor, quantidade, ean, tarja) values (?,?,?,?,?)";
         Connection connection = null;
@@ -199,9 +232,9 @@ public class Conexao {
 
         } finally {
             closeDatabase();
-        }return tarja; 
+        }
+        return tarja;
     }
-        
 
     public void realizarVenda(String ean, String stock) throws SQLException {
         String sql = "SELECT ean, quantidade FROM produtos WHERE ean = ?";
@@ -224,7 +257,12 @@ public class Conexao {
                     }
                 }
                 if (quantidadedb < Integer.parseInt(stock)) {
-                    return;
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setContentText("Estoque insuficiente");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    Boolean confirm = result.isPresent() && result.get() == ButtonType.OK;
+                    if (confirm = true)
+                        return;
                 }
                 int quantidadeAtual = quantidadedb - Integer.parseInt(stock);
                 try (PreparedStatement updateStatement = connection.prepareStatement(updateSql)) {
