@@ -15,7 +15,7 @@ public class SellerScreen {
 
     @FXML
     void listProduct(ActionEvent event) {
-        Drogaria.changeScene("LISPROD");
+        Drogaria.changeScene("LISTPROD");
     }
 
     @FXML

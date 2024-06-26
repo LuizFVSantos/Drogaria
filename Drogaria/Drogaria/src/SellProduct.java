@@ -48,6 +48,7 @@ public class SellProduct {
                 alert.setTitle("Confirmação de Receita");
                 alert.setHeaderText(null);
                 alert.setContentText("Este produto exige receita médica. Você confirmou a entrega da receita?");
+                alert.getButtonTypes();
                 Optional<ButtonType> result = alert.showAndWait();
                 confirmed = result.isPresent() && result.get() == ButtonType.OK;
                 latch.countDown();
