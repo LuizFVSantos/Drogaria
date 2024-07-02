@@ -35,30 +35,28 @@ public class UpdateStock {
             if (confirm = true)
                 return;
         }
-    Conexao exec = new Conexao();
-    String sql = ("UPDATE produtos SET quantidade = ? WHERE ean = ?");try
-    {
-        Connection connection = exec.openDatabase();
-        PreparedStatement pstm = connection.prepareStatement(sql);
-        pstm.setInt(1, Integer.parseInt(stock));
-        pstm.setString(2, ean);
-        pstm.executeUpdate();
-    }catch(
-    SQLException e)
-    {
-        e.printStackTrace();
-    }finally
-    {
-        exec.closeDatabase();
-        stockProduct.clear();
-        eanProduct.clear();
-    }Drogaria.changeScene("ADM");
+        Conexao exec = new Conexao();
+        String sql = ("UPDATE produtos SET quantidade = ? WHERE ean = ?");
+        try {
+            Connection connection = exec.openDatabase();
+            PreparedStatement pstm = connection.prepareStatement(sql);
+            pstm.setInt(1, Integer.parseInt(stock));
+            pstm.setString(2, ean);
+            pstm.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            exec.closeDatabase();
+            stockProduct.clear();
+            eanProduct.clear();
+        }
+        Drogaria.changeScene("ADM");
     }
 
     @FXML
     void outB(ActionEvent event) {
-        Drogaria.changeScene("VENDEDOR");
+        Drogaria.changeScene("ADM");
         stockProduct.clear();
-        eanProduct.clear();   
+        eanProduct.clear();
     }
 }
