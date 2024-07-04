@@ -2,7 +2,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -14,7 +13,6 @@ public class ListProduct implements Initializable{
     private ListView<Produto> listProduct;
     Conexao exec = new Conexao();
     List<Produto> produtos = exec.listarProdutos();
-
     @FXML
     private Button out;
     @FXML
