@@ -1,11 +1,8 @@
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableView;
 
 public class Conexao {
     static final String DB_URL = "jdbc:mysql://localhost:3306/drogaria";
