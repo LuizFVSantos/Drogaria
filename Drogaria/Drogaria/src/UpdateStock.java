@@ -31,7 +31,7 @@ public class UpdateStock {
             alert.setContentText("Existem Campos Vazios");
             Optional<ButtonType> result = alert.showAndWait();
             Boolean confirm = result.isPresent() && result.get() == ButtonType.OK;
-            if (confirm = true)
+            if (confirm.equals(true))
                 return;
         }
         Conexao exec = new Conexao();

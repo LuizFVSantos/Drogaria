@@ -30,7 +30,7 @@ public class LoginControll {
             alert.setContentText("Existem campos vazios");
             Optional<ButtonType> result = alert.showAndWait();
             Boolean confirm = result.isPresent() && result.get() == ButtonType.OK;
-            if(confirm = true){
+            if(confirm.equals(true)){
             return;
             }
         }else{

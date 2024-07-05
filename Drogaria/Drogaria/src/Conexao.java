@@ -50,7 +50,7 @@ public class Conexao {
             alert.setContentText("Usuario ou senha incorretos");
             Optional<ButtonType> result = alert.showAndWait();
             Boolean confirm = result.isPresent() && result.get() == ButtonType.OK;
-            if (confirm = true)
+            if (confirm.equals(true))
                 return "erro";
         }
         String passFuncionario = funcionario.get(0);
@@ -62,7 +62,7 @@ public class Conexao {
                 alert.setContentText("Funcionario não encontrado");
                 Optional<ButtonType> result = alert.showAndWait();
                 Boolean confirm = result.isPresent() && result.get() == ButtonType.OK;
-                if (confirm = true)
+                if (confirm.equals(true))
                     return "erro";
             }
             if (funcaoFuncionario.equals("Administrador")) {
@@ -76,7 +76,7 @@ public class Conexao {
             alert.setContentText("Usuario ou senha Incorretos");
             Optional<ButtonType> result = alert.showAndWait();
             Boolean confirm = result.isPresent() && result.get() == ButtonType.OK;
-            if (confirm = true)
+            if (confirm.equals(true))
                 return "erro";
         }
         return funcaoFuncionario;
@@ -116,7 +116,7 @@ public class Conexao {
             alert.setContentText("Existem Campos Vazios");
             Optional<ButtonType> result = alert.showAndWait();
             Boolean confirm = result.isPresent() && result.get() == ButtonType.OK;
-            if (confirm = true)
+            if (confirm.equals(true))
                 return null;
         }
         String sql = "insert into funcionarios (cpf, nome, funcao, senha) values (?,?,?,?)";
@@ -145,7 +145,7 @@ public class Conexao {
             alert.setContentText("Existem Campos Vazios");
             Optional<ButtonType> result = alert.showAndWait();
             Boolean confirm = result.isPresent() && result.get() == ButtonType.OK;
-            if (confirm = true)
+            if (confirm.equals(true))
                 return null;
         }
         Conexao exec = new Conexao();
@@ -259,7 +259,7 @@ public class Conexao {
                     alert.setContentText("Estoque insuficiente");
                     Optional<ButtonType> result = alert.showAndWait();
                     Boolean confirm = result.isPresent() && result.get() == ButtonType.OK;
-                    if (confirm = true)
+                    if (confirm.equals(true))
                         return;
                 }
                 int quantidadeAtual = quantidadedb - Integer.parseInt(stock);
