@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableView;
 
 public class Conexao {
     static final String DB_URL = "jdbc:mysql://localhost:3306/drogaria";
@@ -172,11 +173,11 @@ public class Conexao {
         return produto;
     }
 
-    public List<Produto> listarProdutos() {
+    public ArrayList<Produto> listarProdutos() {
         ResultSet result = null;
         Conexao exec = new Conexao();
         String sql = "SELECT * from produtos";
-        List<Produto> produto = new ArrayList<Produto>();
+        ArrayList<Produto> produto = new ArrayList<Produto>();
         Connection connection = null;
         try {
             connection = exec.openDatabase();

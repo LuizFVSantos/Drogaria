@@ -61,11 +61,6 @@ public class Produto {
     public void setTarja(String tarja) {
         this.tarja = tarja;
     }
-
-    @Override
-    public String toString() {
-        return "Produto [id= " + id + ", nome= " + nome + ", valor= " + valor + ", quantidade= " + quantidade + ", Codigo de barras= " + ean+ " tarja= " + tarja + "]";
-    }
 }
 
 

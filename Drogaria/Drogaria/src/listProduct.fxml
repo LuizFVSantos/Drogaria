@@ -34,11 +34,12 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -91,8 +92,17 @@
             <Font size="18.0" />
           </font>
         </Label>
-            <Button fx:id="out" layoutX="572.0" layoutY="13.0" mnemonicParsing="false" onAction="#outB" text="Sair" />
-            <ListView fx:id="listProduct" editable="true" layoutX="20.0" layoutY="52.0" prefHeight="312.0" prefWidth="614.0" />
+            <Button fx:id="out" layoutX="564.0" layoutY="13.0" mnemonicParsing="false" onAction="#outB" text="Sair" />
+            <TableView fx:id="tableOfProducts" layoutX="18.0" layoutY="43.0" prefHeight="324.0" prefWidth="606.0">
+              <columns>
+                <TableColumn fx:id="idCol" prefWidth="37.0" text="Id" />
+                <TableColumn fx:id="nameCol" prefWidth="188.0" text="Nome" />
+                  <TableColumn fx:id="valorCol" minWidth="0.0" prefWidth="0.0" text="Valor" />
+                  <TableColumn fx:id="quantCol" prefWidth="89.0" text="Quantidade" />
+                  <TableColumn fx:id="eanCol" prefWidth="119.0" text="Ean" />
+                  <TableColumn fx:id="tarjaCol" prefWidth="83.0" text="Tarja" />
+              </columns>
+            </TableView>
       </children>
     </AnchorPane>
   </children>
