@@ -1,3 +1,5 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Optional;
 import javafx.event.ActionEvent;
@@ -24,7 +26,7 @@ public class DeleteProduct {
         String ean = eanProduct.getText();
         Boolean confirmed = false;
         Conexao exec = new Conexao();
-        String sql = ("DELETE FROM produtos WHERE ean = " + ean);
+        String sql = ("DELETE FROM produtos WHERE ean = ?");
         Alert alert = new Alert(AlertType.WARNING);
         alert.setTitle("Tem certeza que deseja apagar este produto?");
         alert.setContentText(null);
@@ -32,9 +34,18 @@ public class DeleteProduct {
         Optional <ButtonType> result = alert.showAndWait();
         confirmed = result.isPresent() && result.get()==ButtonType.OK;
         if(confirmed.equals(true)){
-            exec.openDatabase();
-            exec.executarQuery(sql);
-            exec.closeDatabase();    
+            try{
+                Connection connection = exec.openDatabase();
+                PreparedStatement pstm = connection.prepareStatement(sql);
+                pstm.setString(1, ean);
+                pstm.executeUpdate();
+            }catch (SQLException e){
+                e.printStackTrace();
+            }finally{
+                exec.closeDatabase();
+                Drogaria.changeScene("ADM");
+                eanProduct.clear();
+            }
         }else{
             Drogaria.changeScene("ADM");
             eanProduct.clear();
