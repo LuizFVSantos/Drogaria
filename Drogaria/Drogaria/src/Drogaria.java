@@ -1,14 +1,7 @@
-import java.util.Optional;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 public class Drogaria extends Application{
     private static Stage stage;
@@ -87,28 +80,4 @@ public class Drogaria extends Application{
     public static void main(String[] args) throws Exception {
         launch (args);
     }
-
-    public static Boolean confirmarReceita() {
-        AtomicBoolean confirmed = new AtomicBoolean(false);
-        CountDownLatch latch = new CountDownLatch(1);
-
-        Platform.runLater(() -> {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Confirmação de Receita");
-            alert.setHeaderText(null);
-            alert.setContentText("Este produto exige receita médica. Você confirmou a entrega da receita?");
-            Optional<ButtonType> result = alert.showAndWait();
-            confirmed.set(result.isPresent() && result.get() == ButtonType.OK);
-            latch.countDown();
-        });
-
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        return confirmed.get();
-    }
-
 }       
