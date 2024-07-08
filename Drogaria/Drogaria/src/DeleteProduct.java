@@ -28,7 +28,7 @@ public class DeleteProduct {
         Conexao exec = new Conexao();
         String sql = ("DELETE FROM produtos WHERE ean = ?");
         Alert alert = new Alert(AlertType.WARNING);
-        alert.setTitle("Tem certeza que deseja apagar este produto?");
+        alert.setTitle("Tem certeza que deseja deletar este produto?");
         alert.setContentText(null);
         alert.setHeaderText("Uma vez deletado não tem como recuperar os dados");
         Optional <ButtonType> result = alert.showAndWait();

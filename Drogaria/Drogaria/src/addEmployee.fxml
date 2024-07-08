@@ -88,21 +88,23 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-            <TextField fx:id="nameEmployee" layoutX="14.0" layoutY="87.0" />
-            <Label layoutX="186.0" layoutY="14.0" text="Adicionar funcionario">
+            <TextField fx:id="nameEmployee" layoutX="18.0" layoutY="53.0" />
+            <Label layoutX="182.0" text="Adicionar funcionario">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="70.0" text="Nome do funcionario" />
-            <TextField fx:id="cpf" layoutX="14.0" layoutY="137.0" />
-            <Label layoutX="14.0" layoutY="120.0" text="CPF" />
-            <PasswordField fx:id="password" layoutX="14.0" layoutY="200.0" />
-            <Label layoutX="14.0" layoutY="179.0" text="Cadastrar senha" />
+            <Label layoutX="18.0" layoutY="36.0" text="Nome do funcionario" />
+            <TextField fx:id="cpf" layoutX="18.0" layoutY="103.0" />
+            <Label layoutX="18.0" layoutY="86.0" text="CPF" />
+            <PasswordField fx:id="password" layoutX="17.0" layoutY="162.0" />
+            <Label layoutX="18.0" layoutY="145.0" text="Cadastrar senha" />
             <Button fx:id="out" layoutX="532.0" layoutY="316.0" mnemonicParsing="false" onAction="#outB" prefHeight="45.0" prefWidth="94.0" text="Sair" />
             <Button fx:id="confirm" layoutX="17.0" layoutY="316.0" mnemonicParsing="false" onAction="#confirmB" prefHeight="45.0" prefWidth="94.0" text="Confirmar" />
-            <ChoiceBox fx:id="choiceBox" layoutX="14.0" layoutY="255.0" prefWidth="150.0" />
-            <Label layoutX="16.0" layoutY="238.0" text="Função" />
+            <ChoiceBox fx:id="choiceBox" layoutX="17.0" layoutY="265.0" prefWidth="150.0" />
+            <Label layoutX="19.0" layoutY="248.0" text="Função" />
+            <Label layoutX="18.0" layoutY="199.0" text="Confirmar senha" />
+            <PasswordField fx:id="confirmPass" layoutX="18.0" layoutY="216.0" />
       </children>
     </AnchorPane>
   </children>

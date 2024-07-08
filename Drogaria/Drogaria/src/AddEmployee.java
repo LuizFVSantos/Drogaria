@@ -9,15 +9,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
 
-public class AddEmployee implements Initializable{
+public class AddEmployee implements Initializable {
 
     @FXML
     private Button confirm;
 
     @FXML
     private ChoiceBox<String> choiceBox;
-    private String funcoes[] = {"Administrador", "Vendedor"};
+    private String funcoes[] = { "Administrador", "Vendedor" };
 
     @FXML
     private TextField cpf;
@@ -32,21 +33,36 @@ public class AddEmployee implements Initializable{
     private PasswordField password;
 
     @FXML
+    private PasswordField confirmPass;
+
+    @FXML
     void confirmB(ActionEvent event) {
-        ArrayList<String> funcionario = new ArrayList<>();
-        funcionario.add(cpf.getText());
-        funcionario.add(nameEmployee.getText());
-        funcionario.add(choiceBox.getValue());
-        funcionario.add(password.getText());
-        try {
-            Conexao exec = new Conexao();   
-            exec.adicionarFuncionarios(funcionario);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (password.getText().equals(confirmPass.getText())) {
+
+            ArrayList<String> funcionario = new ArrayList<>();
+            funcionario.add(cpf.getText());
+            funcionario.add(nameEmployee.getText());
+            funcionario.add(choiceBox.getValue());
+            funcionario.add(password.getText());
+            try {
+                Conexao exec = new Conexao();
+                exec.adicionarFuncionarios(funcionario);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            cpf.clear();
+            nameEmployee.clear();
+            password.clear();
+            confirmPass.clear();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Senhas incompatíveis");
+            alert.setContentText(null);
+            alert.setHeaderText("Digite novamente");
+            alert.showAndWait();
+            password.clear();
+            confirmPass.clear();
         }
-        cpf.clear();
-        nameEmployee.clear();
-        password.clear();
     }
 
     @FXML

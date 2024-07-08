@@ -3,7 +3,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-public class Drogaria extends Application{
+
+public class Drogaria extends Application {
     private static Stage stage;
     private static Scene loginScreen;
     private static Scene admScreen;
@@ -14,8 +15,7 @@ public class Drogaria extends Application{
     private static Scene listProduct;
     private static Scene sellProduct;
     private static Scene updateStock;
-    
-    
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
@@ -77,7 +77,8 @@ public class Drogaria extends Application{
                 break;
         }
     }
+
     public static void main(String[] args) throws Exception {
-        launch (args);
+        launch(args);
     }
-}       
+}
